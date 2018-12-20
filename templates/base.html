@@ -1,8 +1,12 @@
 <html>
 <head>
-    <title>My test application</title>
+    {% block head %}
+    <title>{% block title %}{% endblock %}My application</title>
+    {% endblock %}
 </head>
 <body>
-    hello,test!
+    {% block body %}
+    {% endblock %}
+    hello,test
 </body>
 </html>

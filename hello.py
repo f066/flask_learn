@@ -1,5 +1,7 @@
 #use "pip install flask-bootstrap" command before run this hello.py
 
+from flask_moment import Moment
+from datetime import datetime
 from flask import Flask,render_template
 #from flask import request
 from flask_script import Manager
@@ -7,11 +9,12 @@ from flask_bootstrap import Bootstrap
 app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 #manager = Manager(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_time=datetime.utcnow())
 #    user_agent = request.headers.get('User-Agent')
 #    return '<h1>hello world!</h1><p> your browser is %s!</p>' % user_agent
 #

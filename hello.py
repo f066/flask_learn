@@ -5,7 +5,7 @@ from datetime import datetime
 from flask_wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
-from flask import Flask,render_template
+from flask import Flask,render_template,session,redirect,url_for
 #from flask import request
 from flask_script import Manager
 from flask_bootstrap import Bootstrap
@@ -22,13 +22,12 @@ class NameForm(Form):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    name = None
     form = NameForm()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
+        session['name'] = form.name.data
+        return redirect(url_for('index'))
 
-    return render_template('index.html', form=form, name=name)
+    return render_template('index.html', form=form, name=session.get('name'))
 #    user_agent = request.headers.get('User-Agent')
 #    return '<h1>hello world!</h1><p> your browser is %s!</p>' % user_agent
 #

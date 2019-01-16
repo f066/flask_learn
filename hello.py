@@ -1,7 +1,7 @@
 #use "pip install flask-sqlalchemy" command before run this hello.py
 
 import os
-#from flask_script import shell
+from flask_script import Shell
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
 from datetime import datetime
@@ -49,6 +49,10 @@ class User(db.Model):
 class NameForm(Form):
     name = StringField('what is your name?', validators=[Required()])
     submit = SubmitField('Submit')
+
+def make_shell_context():
+    return dict(app=app, db=db, User=User, Role=Role)
+manager.add_command("shell", Shell(make_context=make_shell_context))
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

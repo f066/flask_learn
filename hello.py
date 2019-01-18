@@ -1,6 +1,7 @@
 #use "pip install flask-sqlalchemy" command before run this hello.py
 
 import os
+from flask_migrate import Migrate, MigrateCommand
 from flask_script import Shell
 from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
@@ -27,6 +28,8 @@ bootstrap = Bootstrap(app)
 moment = Moment(app)
 db = SQLAlchemy(app)
 manager = Manager(app)
+migrate = Migrate(app, db)
+manager.add_command('db', MigrateCommand)
 
 class Role(db.Model):
     __tablename__ = 'roles'
